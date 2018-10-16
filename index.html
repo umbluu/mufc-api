@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <script src="js/vue.js"></script>
+    <script src="js/axios.min.js"></script>
+
+    <title>MUFC API</title>
+</head>
+
+<body>
+    <div class="container" id="app">
+        <div class="row">
+            <table class="table table-hover table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Shirt #</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Position</th>
+                        <th scope="col">Skills</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Delete / Update</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="(currentPlayer, index) in players">
+                        <td>{{currentPlayer.shirtNumber}}</td>
+                        <td>{{currentPlayer.name}}</td>
+                        <td>{{currentPlayer.position}}</td>
+                        <td>{{currentPlayer.skills}}</td>
+                        <td>{{currentPlayer.status}}</td>
+                        <td>
+                            <button @click="deletePlayer(currentPlayer._id)" type="button" class="btn btn-danger btn-sm"><i
+                                    class="material-icons">delete_forever</i></button>
+                            <button @click="openModal('Update player',currentPlayer._id)" type="button" class="btn btn-success btn-sm"
+                                data-toggle="modal" data-target="#modelId"><i class="material-icons">autorenew</i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+        <h1>Add player</h1>
+        <div>
+            <button @click="openModal('Add player')" class="btn btn-primary" data-toggle="modal" data-target="#modelId"><i class="material-icons">add</i></button>
+        </div>
+
+
+        <!-- Add/Update Player Modal -->
+        <div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="modelTitleId">{{modalTitle}}</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+
+                    </div>
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            <form>
+                            <div class="form-group">
+                                <label for="Shirt Number">Shirt Number</label>
+                                <input type="number" class="form-control" id="shirtNumber" v-model.number="player.shirtNumber" placeholder="Shirt number" min="1" max="99" required/>
+                                <label for="Name">Name</label>
+                                <input type="text" class="form-control" v-model="player.name" placeholder="Name">
+                                <label for="Position">Position</label>
+                                <input type="text" class="form-control" v-model="player.position" placeholder="Position">
+                                <label for="Skills">Skills</label>
+                                <input type="text" class="form-control" v-model="player.skills" placeholder="Skills">
+                                <label for="Status">Status</label>
+                                <input type="text" class="form-control" v-model="player.status" placeholder="Status">
+                            </div>
+                        </form>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button @click="modalTitle == 'Add player' ? addPlayer() : updatePlayer()" type="button" class="btn btn-success" data-dismiss="modal">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+    <script src="js/script.js"></script>
+</body>
+
+</html>
